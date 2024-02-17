@@ -1,0 +1,41 @@
+//Question Link
+https://leetcode.com/problems/combination-sum/description/
+
+Solution:
+class Solution {
+public:
+    void solve(vector<int>& candidates, int target,vector<int>& ds, vector<vector<int>>& ans,int index, int n)
+    {
+        //base case
+        if(index==n)
+        {
+            if(target==0)
+            {
+                ans.push_back(ds);
+            }   
+            return;
+        }
+        //main code
+        //case 1 take this index
+        
+        if(candidates[index]<=target)
+        {
+            ds.push_back(candidates[index]);
+            int temp=target-candidates[index];
+            solve(candidates,temp,ds,ans,index,n);
+            ds.pop_back();
+        }
+        
+        //case 2 not take this index
+        int temp1=index+1;
+        solve(candidates,target,ds,ans,temp1,n);
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>>ans;
+        vector<int>ds;
+        int n=candidates.size();
+        int index=0;
+        solve(candidates,target,ds,ans,index,n);
+        return ans;
+    }
+};
